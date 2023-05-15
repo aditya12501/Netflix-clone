@@ -19,20 +19,23 @@ const Auth = () => {
         setVariant((currValue) => currValue === 'login' ? 'register' : 'login' );
     },[]);
 
-    const login = useCallback(async ()=> {
+    const login =useCallback(async () => {
         try {
             await signIn('credentials',{
                 email,
                 password,
-                callbackUrl:'/',
+                callbackUrl:'/profiles',
             });
-            router.push('/profiles')
+
 
         } catch (error) {
             console.log(error);
 
         }
-    },[email,password,router]);
+
+    },[email,password]);
+
+
 
     const register = useCallback(async()=> {
         try {
@@ -42,7 +45,7 @@ const Auth = () => {
             console.log(error);
 
         }
-    },[email,name,password]);
+    },[email,name,password,login]);
 
 
 
