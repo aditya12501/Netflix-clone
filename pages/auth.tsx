@@ -6,8 +6,9 @@ import {signIn} from 'next-auth/react';
 
 import {FcGoogle} from 'react-icons/fc';
 import {FaGithub} from 'react-icons/fa';
-const auth = () => {
-
+import { useRouter } from 'next/router';
+const Auth = () => {
+    const router = useRouter();
     const [email,setEmail] = useState('');
     const [name,setName] = useState('');
     const [password,setPassword]= useState('');
@@ -23,14 +24,15 @@ const auth = () => {
             await signIn('credentials',{
                 email,
                 password,
-                callbackUrl:'/profiles',
-            })
+                callbackUrl:'/',
+            });
+            router.push('/profiles')
 
         } catch (error) {
             console.log(error);
 
         }
-    },[email,password])
+    },[email,password,router]);
 
     const register = useCallback(async()=> {
         try {
@@ -40,7 +42,7 @@ const auth = () => {
             console.log(error);
 
         }
-    },[email,name,password])
+    },[email,name,password]);
 
 
 
@@ -49,7 +51,7 @@ const auth = () => {
     <div className="relative h-full w-full bg-[url('/images/hero.jpg')] bg-no-repeat bg-center bg-fixed bg-cover " >
         <div className="bg-black w-full h-full lg:bg-opacity-50" >
             <nav className="py-5 px-12" >
-                <img src="/images/logo.png" className="h-12" />
+                <img alt='Nice' src="/images/logo.png" className="h-12" />
             </nav>
             <div className="flex  justify-center">
                 <div className="bg-black bg-opacity-70 px-16 py-16 self-center mt-2 lg:w-2/5 lg:max-w-md rounded-md w-full ">
@@ -102,4 +104,4 @@ const auth = () => {
   )
 }
 
-export default auth
+export default Auth;
